@@ -94,7 +94,7 @@ enum DbType : int
 }
 
 /**
- * Returns pgsql Oid from type
+ * Returns pgsql Oid from base type
  */
 DbType getDbType(T)()
 {

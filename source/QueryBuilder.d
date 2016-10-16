@@ -20,13 +20,7 @@ struct QueryBuilder
     {
         this.m_connection = connection;
     }
-    
-    public void write()
-    {
-        writeln(this.m_selectColumns);
-        this.m_selectColumns = null;
-    }
-    
+        
     public QueryBuilder* select(string columns)
     {
         this.m_selectColumns ~= columns.split(',');
@@ -42,7 +36,7 @@ struct QueryBuilder
     
     public DataReader fetch()
     {
-        immutable string query = format("SELECT %s FROM %s",this.m_selectColumns.join(','), this.m_tableName);
+        immutable string query = format("SELECT %s FROM %s", this.m_selectColumns.join(','), this.m_tableName);
         
         this.m_selectColumns = [];
         
