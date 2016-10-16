@@ -9,7 +9,7 @@ import Dpgsql.Connection;
 import Dpgsql.Parameter;
 import Dpgsql.DataReader;
 import Dpgsql.SqlException;
-import Dpgsql.pgsql;
+import derelict.pq.pq;
 
 struct Command
 {
@@ -34,9 +34,9 @@ struct Command
      */
     private PGresult* execute() @trusted
     {
-        size_t[] length = new size_t[this.m_parameters.length];
-        auto values = new const(ubyte)*[this.m_parameters.length];
-        size_t[] binary = new size_t[this.m_parameters.length];
+        int[] length = new int[this.m_parameters.length];
+        auto values = new ubyte*[this.m_parameters.length];
+        int[] binary = new int[this.m_parameters.length];
         
         foreach(i, ref parameter; this.m_parameters)
         {			

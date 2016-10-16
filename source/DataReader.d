@@ -7,7 +7,7 @@ import std.variant;
 
 import Dpgsql.Types;
 import Dpgsql.SqlException;
-import Dpgsql.pgsql;
+import derelict.pq.pq;
 
 struct Row
 {

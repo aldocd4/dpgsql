@@ -5,5 +5,8 @@
 	],
 	"description": "D PostgreSQL client",
 	"copyright": "",
-	"versions": [ "LogQuery" ]
+	"versions": [ "LogQuery" ],
+	"dependencies": {
+		"derelict-pq": "~>2.0.2"
+	}
 }

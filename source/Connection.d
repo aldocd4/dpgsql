@@ -4,7 +4,7 @@ import std.conv : to;
 import std.string : toStringz;
 
 import Dpgsql.SqlException;
-import Dpgsql.pgsql;
+import derelict.pq.pq;
 
 class Connection
 {
@@ -26,7 +26,7 @@ class Connection
         this.m_connection = PQconnectdb(toStringz(this.m_connectionString));
         
         // Check status
-        if(PQstatus(this.m_connection) != ConnStatusType.CONNECTION_OK)
+        if(PQstatus(this.m_connection) != CONNECTION_OK)
         {
             immutable string error = PQerrorMessage(this.m_connection).to!string();
             throw new SqlException(error);
