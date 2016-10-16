@@ -1,0 +1,12 @@
+{
+	"name": "dpgsql",
+	"authors": [
+		"Misu"
+	],
+	"description": "D PostgreSQL client",
+	"copyright": " ",
+	"license": "proprietary",
+	"targetType": "staticLibrary",
+    "targetPath": "lib",
+	"versions": [ "LogQuery" ]
+}
