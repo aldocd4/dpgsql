@@ -22,17 +22,17 @@ struct Row
 
 struct DataReader
 {
-	/// Rows count
-	private int m_rowsCount;
+    /// Rows count
+    private int m_rowsCount;
 
     /// Columns count
     private int m_columnsCount;
 
-	/// Current row index
-	private int m_currentRowIndex;
+    /// Current row index
+    private int m_currentRowIndex;
 
-	/// Query result
-	private PGresult* m_result;
+    /// Query result
+    private PGresult* m_result;
 
     public this(PGresult* result)
     {
@@ -41,37 +41,37 @@ struct DataReader
         this.m_columnsCount = PQnfields(result);
     }
 
-	/**
-	 * Reads a value by column index and automatically deduce value type 
-	 * Params:
-	 *		column : column index
-	 */
-	public Variant read(in int column) @trusted
-	{
+    /**
+     * Reads a value by column index and automatically deduce value type 
+     * Params:
+     *		column : column index
+     */
+    public Variant read(in int column) @trusted
+    {
         assert(column <= this.m_columnsCount);
 
-		switch(PQftype(this.m_result, column))
-		{
-			case DbType.Varchar : return Variant(this.read!string(column));
-			case DbType.Bool: return Variant(this.read!bool(column));
-			case DbType.Short: return Variant(this.read!short(column));
-			case DbType.Int: return Variant(this.read!int(column));
-			case DbType.Long: return Variant(this.read!long(column));
-			case DbType.Float: return Variant(this.read!float(column));
-			case DbType.Double: return Variant(this.read!double(column));
-				
-			default : 
-				return Variant(this.read!string(column));
-		}
-	}
-	
-	/**
-	 * Reads a value by column name
-	 * Params:
-	 *   	 columnName : column name
-	 */
-	public T read(T)(in string columnName) @trusted
-	{
+        switch(PQftype(this.m_result, column))
+        {
+            case DbType.Varchar : return Variant(this.read!string(column));
+            case DbType.Bool: return Variant(this.read!bool(column));
+            case DbType.Short: return Variant(this.read!short(column));
+            case DbType.Int: return Variant(this.read!int(column));
+            case DbType.Long: return Variant(this.read!long(column));
+            case DbType.Float: return Variant(this.read!float(column));
+            case DbType.Double: return Variant(this.read!double(column));
+                
+            default : 
+                return Variant(this.read!string(column));
+        }
+    }
+    
+    /**
+     * Reads a value by column name
+     * Params:
+     *   	 columnName : column name
+     */
+    public T read(T)(in string columnName) @trusted
+    {
         immutable columnIndex = PQfnumber(this.m_result, columnName.ptr);
 
         if(columnIndex == -1)
@@ -80,42 +80,42 @@ struct DataReader
             throw new InvalidColumnIndexException(format("Invalid column \"%s\".", columnName));
         }
 
-		return this.read!T(columnIndex);
-	}
+        return this.read!T(columnIndex);
+    }
 
-	/**
-	 * Reads a value by column index
-	 * Params:
-	 *   	 column : column index
-	 */
-	public T read(T)(in int column) @trusted
-	{
+    /**
+     * Reads a value by column index
+     * Params:
+     *   	 column : column index
+     */
+    public T read(T)(in int column) @trusted
+    {
          assert(column <= this.m_columnsCount);
 
-		char* value = cast(char*)PQgetvalue(this.m_result, this.m_currentRowIndex, column);
-		
-		if(value is null || *value == '\0')
-		{
-			// String
-			static if(isSomeString!T)
+        char* value = cast(char*)PQgetvalue(this.m_result, this.m_currentRowIndex, column);
+        
+        if(value is null || *value == '\0')
+        {
+            // String
+            static if(isSomeString!T)
             {
-				return "null";
+                return "null";
             }
-			else return 0;
-		}
-		
-		return value.to!(char[]).to!T();
-	}
-	
-	public bool read(T : bool)(in int column)
-	{
-		return this.read!string(column) == "t" ?  true : false;
-	}
+            else return 0;
+        }
+        
+        return value.to!(char[]).to!T();
+    }
+    
+    public bool read(T : bool)(in int column)
+    {
+        return this.read!string(column) == "t" ?  true : false;
+    }
 
     public void popFront() pure nothrow @safe @nogc
-	{
-		this.m_currentRowIndex++;
-	}
+    {
+        this.m_currentRowIndex++;
+    }
 
     @property
     public Row front()
@@ -132,22 +132,22 @@ struct DataReader
         return Row(ret);
     }
 
-	@property 
-	public bool empty() const pure nothrow @safe @nogc
-	{
-		return this.m_currentRowIndex == this.m_rowsCount;
-	}
+    @property 
+    public bool empty() const pure nothrow @safe @nogc
+    {
+        return this.m_currentRowIndex == this.m_rowsCount;
+    }
 
-	@property
-	public int length() const pure nothrow @safe @nogc
-	{
-		return this.m_rowsCount;
-	}
-	
-	@property
-	public int currentRow() const pure nothrow @safe @nogc
-	{
-		return this.m_currentRowIndex;
-	}
+    @property
+    public int length() const pure nothrow @safe @nogc
+    {
+        return this.m_rowsCount;
+    }
+    
+    @property
+    public int currentRow() const pure nothrow @safe @nogc
+    {
+        return this.m_currentRowIndex;
+    }
 }
 

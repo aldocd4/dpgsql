@@ -4,9 +4,6 @@
 		"Misu"
 	],
 	"description": "D PostgreSQL client",
-	"copyright": " ",
-	"license": "proprietary",
-	"targetType": "staticLibrary",
-    "targetPath": "lib",
+	"copyright": "",
 	"versions": [ "LogQuery" ]
 }

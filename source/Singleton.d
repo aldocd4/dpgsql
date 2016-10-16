@@ -7,9 +7,9 @@ template Singleton()
 {
     private static bool instantiated;
 
-	private __gshared static typeof(this) instance;
+    private __gshared static typeof(this) instance;
  
-	public static typeof(this) getInstance()
+    public static typeof(this) getInstance()
     {
         if(!instantiated)
         {

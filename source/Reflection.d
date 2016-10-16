@@ -9,11 +9,11 @@ import Dpgsql.Annotations;
  */
 template getTableColumns(T)
 {
-	string getTableColumnsImpl()
-	{
-		string names = "";
-		
-		foreach(i, dummy ; typeof(T.tupleof))
+    string getTableColumnsImpl()
+    {
+        string names = "";
+        
+        foreach(i, dummy ; typeof(T.tupleof))
         {
             enum attributes = __traits(getAttributes, T.tupleof[i]);
 
@@ -37,10 +37,10 @@ template getTableColumns(T)
             }
         }
 
-		return names;
-	}
-	
-	enum getTableColumns = getTableColumnsImpl();
+        return names;
+    }
+    
+    enum getTableColumns = getTableColumnsImpl();
 }
 
 
@@ -49,33 +49,33 @@ template getTableColumns(T)
  */
 template getTableName(T)
 {
-	string getTableNameImpl()
-	{
+    string getTableNameImpl()
+    {
         string tableName;
 
-		enum attributes = __traits(getAttributes, T);
-		
-		foreach(attribute; attributes)
-		{
-			static if(is(typeof(attribute) : Table))
-			{
-				tableName = attribute.tableName;
-			}
-		}
+        enum attributes = __traits(getAttributes, T);
+        
+        foreach(attribute; attributes)
+        {
+            static if(is(typeof(attribute) : Table))
+            {
+                tableName = attribute.tableName;
+            }
+        }
 
         tableName = T.stringof.toLower();
-		return tableName;
-	}
-	
-	enum getTableName = getTableNameImpl();
+        return tableName;
+    }
+    
+    enum getTableName = getTableNameImpl();
 }
 
 
 template genEntityProperties(T)
 {
-	string genEntityPropertiesImpl()
-	{
-		string toRet = "";
+    string genEntityPropertiesImpl()
+    {
+        string toRet = "";
 
         foreach(i, dummy ; typeof(T.tupleof))
         {
@@ -111,10 +111,10 @@ template genEntityProperties(T)
             
                 }
             }
-		}
-			
-		return toRet;
-	}
-	
-	enum genEntityProperties = genEntityPropertiesImpl();
+        }
+            
+        return toRet;
+    }
+    
+    enum genEntityProperties = genEntityPropertiesImpl();
 }
