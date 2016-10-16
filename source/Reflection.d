@@ -88,21 +88,6 @@ template genEntityProperties(T)
                     enum name = T.tupleof[i].stringof;                    
                     enum type = typeof(T.tupleof[i]).stringof;
                     
-                    // public bool idUpdated;      
-                    //toRet ~= format(`public bool %sUpdated;`, member);
-
-                    /*enum varName = format("%sUpdated", member);
-
-                    toRet ~= format(`
-                        private bool m_%s;
-
-                        @property
-                        public bool %s() const pure nothrow @safe @nogc
-                        {
-                            return this.m_%s;
-                        }
-                    `, varName, varName, varName); */
-
                     toRet ~= format(`
                         @property
                         public %s get%s() pure nothrow @safe @nogc
