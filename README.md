@@ -23,6 +23,12 @@ for (;!dataReader.empty; dataReader.popFront())
 {
   writeln(dataReader.read!string("name"));
 }
+
+// or 
+foreach(row; dataReader)
+{
+	writeln(row);
+}
 ```
 
 ### Query Builder
