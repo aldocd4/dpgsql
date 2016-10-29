@@ -1,12 +1,26 @@
 {
-	"name": "dpgsql",
 	"authors": [
-		"Misu"
+		"Robert Georges"
 	],
-	"description": "D PostgreSQL client",
-	"copyright": "",
-	"versions": [ "LogQuery" ],
+	"targetName": "dpgsql",
+	"description": "A basic D PostgreSQL client.",
+	"importPaths": [
+		"source/"
+	],
+	"targetPath": "lib",
+	"name": "dpgsql",
 	"dependencies": {
 		"derelict-pq": "~>2.0.2"
-	}
+	},
+	"version": "1.0.0",
+	"sourcePaths": [
+		"source/"
+	],
+	"configurations": [
+		{
+			"name": "library",
+			"targetType": "library"
+		}
+	],
+	"versions": [ "LogQuery" ]
 }
