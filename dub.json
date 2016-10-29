@@ -2,6 +2,7 @@
 	"authors": [
 		"Robert Georges"
 	],
+	"license": "public domain",
 	"targetName": "dpgsql",
 	"description": "A basic D PostgreSQL client.",
 	"importPaths": [
