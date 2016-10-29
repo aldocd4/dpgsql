@@ -52,8 +52,38 @@ class Character : IEntity
 
     @Column("name")
     private wstring name;
+    
+    @OneToMany("character_id")
+    private Item[] items;
+
+    public void beforeInsert()
+    {
+        import std.stdio;
+        writeln("Before insert!");
+    }
+
+    public void afterInsert()
+    {
+        import std.stdio;
+        writeln("After insert!");
+    }
 
     mixin Entity!(Character);
+}
+
+@Table("item")
+class Item : IEntity
+{
+    @Column("id")
+    private int id;
+
+    @Column("character_id")
+    private int characterId;
+
+    @ManyToOne("character_id")
+    private Character character;
+
+    mixin Entity!(Item);
 }
 
 auto entitManager = EntityManager.getInstance();
@@ -64,11 +94,16 @@ auto repo = entitManager.getRepository!Character();
 auto character = repo.find(5);
 writeln(character.getName());
 
-auto characterHi = repo.findBy(["name": "Coco"])[0];
-writeln(characterHi.getName());
+auto coco = repo.findBy(["name": "Coco"])[0];
+writeln(coco.getName());
 
 character.setName("hi");
 character.update(); // or repo.update(character);
+
+foreach(i; character.getItems())
+{
+    writeln(i.getId());
+}
 
 writeln(repo.insert(character));
 ```
