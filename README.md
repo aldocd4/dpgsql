@@ -94,8 +94,8 @@ auto repo = entitManager.getRepository!Character();
 auto character = repo.find(5);
 writeln(character.getName());
 
-auto characterHi = repo.findBy(["name": "Coco"])[0];
-writeln(characterHi.getName());
+auto coco = repo.findBy(["name": "Coco"])[0];
+writeln(coco.getName());
 
 character.setName("hi");
 character.update(); // or repo.update(character);
