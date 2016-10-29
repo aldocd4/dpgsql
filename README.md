@@ -52,8 +52,38 @@ class Character : IEntity
 
     @Column("name")
     private wstring name;
+    
+    @OneToMany("character_id")
+    private Item[] items;
+
+    public void beforeInsert()
+    {
+        import std.stdio;
+        writeln("Before insert!");
+    }
+
+    public void afterInsert()
+    {
+        import std.stdio;
+        writeln("After insert!");
+    }
 
     mixin Entity!(Character);
+}
+
+@Table("item")
+class Item : IEntity
+{
+    @Column("id")
+    private int id;
+
+    @Column("character_id")
+    private int characterId;
+
+    @ManyToOne("character_id")
+    private Character character;
+
+    mixin Entity!(Item);
 }
 
 auto entitManager = EntityManager.getInstance();
@@ -69,6 +99,11 @@ writeln(characterHi.getName());
 
 character.setName("hi");
 character.update(); // or repo.update(character);
+
+foreach(i; character.getItems())
+{
+    writeln(i.getId());
+}
 
 writeln(repo.insert(character));
 ```
