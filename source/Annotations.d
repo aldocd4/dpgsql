@@ -19,3 +19,21 @@ struct Column
     public string columnName;
     public Column.Type columnType = Column.Type.Default;
 }
+
+struct OneToMany
+{   
+    public string foreignKey;
+	public FetchMode fetchMode = FetchMode.Eager;
+}
+
+struct ManyToOne
+{   
+    public string foreignKey;
+	public FetchMode fetchMode = FetchMode.Eager;
+}
+
+enum FetchMode
+{
+	Eager,
+	Lazy
+}

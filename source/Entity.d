@@ -46,5 +46,7 @@ template Entity(T)
 
     }
 
+    // pragma(msg, genEntityProperties!(T));
+    
     mixin(genEntityProperties!(T));
 }

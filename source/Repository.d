@@ -127,6 +127,7 @@ class Repository(T) : IRepository
 
         int paramIndex;
     
+        // Basic columns
         foreach(i, dummy ; typeof(T.tupleof))
         {
             enum attributes = __traits(getAttributes, T.tupleof[i]);
@@ -150,7 +151,6 @@ class Repository(T) : IRepository
                         command.addParameter(entity.tupleof[i]);			
                     }
                 }
-
             } // end foreach UDAs
         }
 
@@ -161,7 +161,36 @@ class Repository(T) : IRepository
             writeln(command.query);
         }
         
+        entity.beforeInsert();
         entity.setId(command.executeScalar());
+
+        // Relations
+        foreach(i, dummy ; typeof(T.tupleof))
+        {
+            enum attributes = __traits(getAttributes, T.tupleof[i]);
+
+            foreach(j, UDA; attributes)
+            {
+               static if(is(typeof(UDA) == OneToMany))
+                {
+                    foreach(ent; entity.tupleof[i])
+                    {
+                        // fkId = item.getCharacterId();
+                        auto fkId = mixin("ent.get" ~ T.stringof ~ "Id()");
+                        
+                        if(ent.getId() == 0 || fkId != entity.getId())
+                        {
+                            // item.setCharacter(entity);
+                            mixin("ent.set" ~ T.stringof ~ "(entity);");
+                            ent.insert();
+                        }
+                    }
+                }
+
+            } // end foreach UDAs
+        }
+
+        entity.afterInsert();
 
         return entity.getId();
     }
@@ -189,6 +218,16 @@ class Repository(T) : IRepository
                         command.addParameter(entity.tupleof[i]);
                     }
                 }
+                else static if(is(typeof(UDA) == OneToMany))
+                {
+                    foreach(ent; entity.tupleof[i])
+                    {
+                        if(ent.getId() == 0)
+                        {
+                            ent.insert();
+                        }
+                    }
+                }
             }
         }
             
@@ -199,7 +238,13 @@ class Repository(T) : IRepository
             writeln(command.query);
         }
 
-        return command.executeNonQuery() != 0;
+        entity.beforeUpdate();
+
+        auto queryResult = command.executeNonQuery() != 0;
+
+        entity.afterUpdate();        
+
+        return queryResult;
     }
 
     /**
