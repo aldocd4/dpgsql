@@ -47,6 +47,11 @@ struct Command
                 
         synchronized(this.m_lock)
         {
+            version(LogQuery)
+            {
+                writeln(this.m_query);
+            }
+
             // Execute query and get the result
             auto result = PQexecParams(this.m_connection, toStringz(this.m_query), this.m_parameters.length,
                 null,
@@ -138,6 +143,11 @@ struct Command
         debug
         {
             immutable string status = PQresStatus(PQresultStatus(result)).to!string();
+            
+            version(LogQuery)
+            {
+                writeln(status);
+            }
             
             if(status == "PGRES_FATAL_ERROR")
             {

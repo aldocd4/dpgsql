@@ -32,6 +32,11 @@ struct ManyToOne
 	public FetchMode fetchMode = FetchMode.Eager;
 }
 
+struct OneToOne
+{
+    public string foreignKey;
+}
+
 enum FetchMode
 {
 	Eager,

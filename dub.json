@@ -8,7 +8,6 @@
 	"importPaths": [
 		"source/"
 	],
-	"targetPath": "lib",
 	"name": "dpgsql",
 	"dependencies": {
 		"derelict-pq": "~>2.0.2"
@@ -17,11 +16,6 @@
 	"sourcePaths": [
 		"source/"
 	],
-	"configurations": [
-		{
-			"name": "library",
-			"targetType": "library"
-		}
-	],
+
 	"versions": [ "LogQuery" ]
 }

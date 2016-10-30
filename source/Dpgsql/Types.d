@@ -28,7 +28,7 @@ enum DbType : int
     POLYGONOID = 604                ,
     LINEOID = 628                   ,
     Float = 700                 ,
-    Double = 701                 ,
+    Float8 = 701                 ,
     ABSTIMEOID = 702                ,
     RELTIMEOID = 703                ,
     TINTERVALOID = 704              ,
@@ -112,7 +112,7 @@ DbType getDbType(T)()
     }
     else static if(is(T == float) || is(T == double))
     {
-        return DbType.Double;
+        return DbType.Float8;
     }
     else return DbType.Text;
 }

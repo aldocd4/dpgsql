@@ -156,11 +156,6 @@ class Repository(T) : IRepository
 
         command.query = format("INSERT INTO %s(%s) VALUES (%s) RETURNING id", tableName, columns.chomp(","), values.chomp(","));
 
-        version(LogQuery)
-        {
-            writeln(command.query);
-        }
-        
         entity.beforeInsert();
         entity.setId(command.executeScalar());
 
@@ -171,7 +166,7 @@ class Repository(T) : IRepository
 
             foreach(j, UDA; attributes)
             {
-               static if(is(typeof(UDA) == OneToMany))
+                static if(is(typeof(UDA) == OneToMany))
                 {
                     foreach(ent; entity.tupleof[i])
                     {
@@ -184,6 +179,15 @@ class Repository(T) : IRepository
                             mixin("ent.set" ~ T.stringof ~ "(entity);");
                             ent.insert();
                         }
+                    }
+                }
+                else static if(is(typeof(UDA) == OneToOne))
+                {
+                    auto ent = entity.tupleof[i];
+                    
+                    if(ent.getId() == 0)
+                    {
+                        ent.insert();
                     }
                 }
 
@@ -233,11 +237,6 @@ class Repository(T) : IRepository
             
         command.query = format("UPDATE %s SET %s WHERE id = %d", tableName, values.chomp(","), entity.getId());
         
-        version(LogQuery)
-        {
-            writeln(command.query);
-        }
-
         entity.beforeUpdate();
 
         auto queryResult = command.executeNonQuery() != 0;

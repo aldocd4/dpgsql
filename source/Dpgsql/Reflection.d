@@ -78,7 +78,7 @@ template genEntityProperties(T)
     {
         string toRet = "";
 
-        pragma(msg, "Generating properties for " ~ T.stringof);
+        // pragma(msg, "Generating properties for " ~ T.stringof);
 
         foreach(i, dummy ; typeof(T.tupleof))
         {
@@ -114,6 +114,7 @@ template genEntityProperties(T)
                     enum realType = type[0..type.stringof.indexOf('[') - 1];
                     
                     // this.m_items = this.m_em.getRepository!Item().findBy(["character_id" : this.m_id.to!string]);
+
                     toRet ~= `
                         @property
                         public %TYPE%[] get%VARUPPERCASE%()
@@ -147,10 +148,6 @@ template genEntityProperties(T)
                     enum name = T.tupleof[i].stringof;                    
                     enum type = typeof(T.tupleof[i]).stringof;
                     
-                    // Will generate :
-                    // @Column("character_id")
-                    // private int character_id;
-
                     // this.m_character = this.m_em.getRepository!Item().findBy(this.character_id);
   
                     toRet ~= `
@@ -173,6 +170,33 @@ template genEntityProperties(T)
                         }
                     `.replace("%TYPE%", type)
                     .replace("%VARNAME%", name);
+                }
+                else static if(is(typeof(UDA) == OneToOne))
+                {
+                    enum name = T.tupleof[i].stringof;                    
+                    enum type = typeof(T.tupleof[i]).stringof;
+
+                    toRet ~= `
+                        @property
+                        public %TYPE% get%VARUPPERCASE%()
+                        {   
+                            if(this.%VARLOWERCASE% is null)
+                            {
+                                import std.conv : to;                            
+                                this.%VARLOWERCASE% = this.m_em.getRepository!%TYPE%().find(this.%FK%);
+                            }
+                            return this.%VARLOWERCASE%;
+                        }
+
+                        @property
+                        public void set%VARUPPERCASE%(%TYPE% value) pure nothrow @safe @nogc
+                        {
+                            this.%VARLOWERCASE% = value;
+                        }
+                    `.replace("%TYPE%", type)
+                    .replace("%VARUPPERCASE%", name[0].toUpper() ~ name[1..$])
+                    .replace("%VARLOWERCASE%", name)
+                    .replace("%FK%", UDA.foreignKey);
                 }
             }
         }

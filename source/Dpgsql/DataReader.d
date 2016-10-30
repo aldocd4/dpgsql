@@ -58,7 +58,7 @@ struct DataReader
             case DbType.Int: return Variant(this.read!int(column));
             case DbType.Long: return Variant(this.read!long(column));
             case DbType.Float: return Variant(this.read!float(column));
-            case DbType.Double: return Variant(this.read!double(column));
+            case DbType.Float8: return Variant(this.read!double(column));
                 
             default : 
                 return Variant(this.read!string(column));

@@ -41,7 +41,7 @@ struct Parameter
     
     public bool isBinary() const pure nothrow @safe @nogc
     {
-        return this.m_type == DbType.Bool || this.m_type == DbType.Int || this.m_type == DbType.Double;
+        return this.m_type == DbType.Bool || this.m_type == DbType.Int || this.m_type == DbType.Float8;
     }
 
     @property

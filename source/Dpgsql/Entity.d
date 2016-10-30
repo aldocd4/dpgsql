@@ -9,13 +9,11 @@ template Entity(T)
 {
     protected EntityManager m_em;
 
-    protected bool m_needInsert;
-
     public this()
     {
-        this.m_em = EntityManager.getInstance();	
+        this.m_em = EntityManager.getInstance();
     }
-
+    
     public void update()
     {
         this.m_em.getRepository!T().update(cast(T)this);
@@ -46,7 +44,6 @@ template Entity(T)
 
     }
 
-    // pragma(msg, genEntityProperties!(T));
-    
+    //pragma(msg, genEntityProperties!(T));
     mixin(genEntityProperties!(T));
 }
