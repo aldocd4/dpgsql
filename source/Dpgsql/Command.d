@@ -49,7 +49,7 @@ struct Command
         {
             version(LogQuery)
             {
-                writeln(this.m_query);
+                write(this.m_query);
             }
 
             // Execute query and get the result
@@ -136,25 +136,22 @@ struct Command
     }
 
     /**
-     * Checks for error in debug mode only
+     * Checks for error
      */
-    public void checkError(in PGresult* result) pure @trusted
+    public void checkError(in PGresult* result) @trusted
     {
-        debug
+        immutable string status = PQresStatus(PQresultStatus(result)).to!string();
+        
+        version(LogQuery)
         {
-            immutable string status = PQresStatus(PQresultStatus(result)).to!string();
-            
-            version(LogQuery)
-            {
-                writeln(status);
-            }
-            
-            if(status == "PGRES_FATAL_ERROR")
-            {
-                // Throw error
-                immutable string error = PQerrorMessage(this.m_connection).to!string();
-                throw new SqlException(error);
-            }
+            writeln(" : " , status);
+        }
+        
+        if(status == "PGRES_FATAL_ERROR")
+        {
+            // Throw error
+            immutable string error = PQerrorMessage(this.m_connection).to!string();
+            throw new SqlException(error);
         }
     }
 

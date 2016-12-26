@@ -20,6 +20,21 @@ struct Column
     public Column.Type columnType = Column.Type.Default;
 }
 
+struct ForeignKey
+{
+    enum Type
+    {
+        Default,
+        Int,
+        String,
+        Boolean,
+        DateTime,
+    }
+
+    public string columnName;
+    public Column.Type columnType = Column.Type.Default;
+}
+
 struct OneToMany
 {   
     public string foreignKey;

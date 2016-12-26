@@ -76,11 +76,6 @@ class Repository(T) : IRepository
 
         command.query = format("SELECT %s FROM %s WHERE %s", getTableColumns!(T).chomp(","), tableName, clause.chomp(" AND "));
 
-        version(LogQuery)
-        {
-            writeln(command.query);
-        }
-        
         auto dataReader = command.executeReader();
         
         if(dataReader.empty)
@@ -101,14 +96,14 @@ class Repository(T) : IRepository
 
     public bool remove(T : IEntity)(T entity)
     {
-        auto command = Command(this.m_connection, format("DELETE FROM %s WHERE id = $1::int", tableName));
-        command.addParameter(entity.id);
-        
-        version(LogQuery)
-        {
-            writeln(command.query);
-        }
+        return this.remove(entity.id);
+    }
 
+    public bool remove(in int id)
+    {
+        auto command = Command(this.m_connection, format("DELETE FROM %s WHERE id = $1::int", tableName));
+        command.addParameter(id);
+        
         return command.executeNonQuery() != 0;
     }
 
@@ -212,10 +207,19 @@ class Repository(T) : IRepository
 
             foreach(j, UDA; attributes)
             {
-                static if(is(typeof(UDA) == Column))
+                static if(is(typeof(UDA) == Column) || is(typeof(UDA) == ForeignKey))
                 {
                     static if(UDA.columnName != "id")
-                    {         
+                    {
+                        // We check for foreign key with null value
+                        static if(is(typeof(UDA) == ForeignKey))
+                        {
+                            if(entity.tupleof[i] == 0)
+                            {
+                                continue;
+                            }
+                        }
+
                         // $1::integer, 
                         values ~= format("%s = $%d::%s,", UDA.columnName, ++paramIndex, getDbType!( typeof(T.tupleof[i]) )() );
                         
@@ -261,7 +265,7 @@ class Repository(T) : IRepository
 
             foreach(j, UDA; attributes)
             {
-                static if(is(typeof(UDA) == Column))
+                static if(is(typeof(UDA) == Column) || is(typeof(UDA) == ForeignKey))
                 {
                     toRet.tupleof[i] = dataReader.read!(typeof(T.tupleof[i]))(UDA.columnName);
                 }

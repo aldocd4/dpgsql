@@ -20,7 +20,7 @@ template getTableColumns(T)
 
             foreach(j, UDA; attributes)
             {
-                static if(is(typeof(UDA) == Column))
+                static if(is(typeof(UDA) == Column) || is(typeof(UDA) == ForeignKey))
                 {
                     enum name = T.tupleof[i].stringof;                    
                     enum type = typeof(T.tupleof[i]).stringof;
@@ -86,7 +86,7 @@ template genEntityProperties(T)
 
             foreach(j, UDA; attributes)
             {
-                static if(is(typeof(UDA) == Column))
+                static if(is(typeof(UDA) == Column) || is(typeof(UDA) == ForeignKey))
                 {
                     enum name = T.tupleof[i].stringof;                    
                     enum type = typeof(T.tupleof[i]).stringof;
