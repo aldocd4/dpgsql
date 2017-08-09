@@ -2,7 +2,6 @@ dpgsql
 ======
 
 dpgsql is a basic PostgreSQL client for D language.
-dlang postgresql.
 
 ## How to use
 
