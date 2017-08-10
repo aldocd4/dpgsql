@@ -53,7 +53,7 @@ struct Command
             }
 
             // Execute query and get the result
-            auto result = PQexecParams(this.m_connection, toStringz(this.m_query), this.m_parameters.length,
+            auto result = PQexecParams(this.m_connection, toStringz(this.m_query), cast(int)this.m_parameters.length,
                 null,
                 values.ptr,
                 length.ptr,
