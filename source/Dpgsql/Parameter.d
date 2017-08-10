@@ -1,6 +1,6 @@
-module Dpgsql.Parameter;
+module dpgsql.Parameter;
 
-import Dpgsql.Types;
+import dpgsql.Types;
 
 import std.conv;
 import std.bitmanip;
