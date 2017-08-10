@@ -42,7 +42,7 @@ struct Command
         {			
             binary[i] = parameter.isBinary();
             values[i] = parameter.value.ptr;
-            length[i] = parameter.value.length;			
+            length[i] = cast(int)parameter.value.length;			
         }
                 
         synchronized(this.m_lock)
