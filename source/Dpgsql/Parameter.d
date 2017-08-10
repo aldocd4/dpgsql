@@ -4,6 +4,7 @@ import Dpgsql.Types;
 
 import std.conv;
 import std.bitmanip;
+import std.json;
 
 struct Parameter
 {
@@ -36,6 +37,11 @@ struct Parameter
         {
             this.m_value = [0, 0, 0, 0, 0, 0, 0, 0];
             this.m_value.write!double(v, 0);
+        }
+        else static if(is(T == JSONValue))
+        {
+            // JSONB
+            this.m_value = cast(ubyte[])(v.toString() ~ '\0');
         }
     }
     

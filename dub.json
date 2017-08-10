@@ -1,21 +1,21 @@
 {
-	"authors": [
-		"Robert Georges"
-	],
-	"license": "public domain",
-	"targetName": "dpgsql",
-	"description": "A basic D PostgreSQL client.",
-	"importPaths": [
-		"source/"
-	],
-	"name": "dpgsql",
-	"dependencies": {
-		"derelict-pq": "~>2.0.2"
-	},
-	"version": "1.0.0",
-	"sourcePaths": [
-		"source/"
-	],
+    "authors": [
+        "Robert Georges"
+    ],
+    "license": "public domain",
+    "targetName": "dpgsql",
+    "description": "A basic D PostgreSQL client.",
+    "importPaths": [
+        "source/"
+    ],
+    "name": "dpgsql",
+    "dependencies": {
+        "derelict-pq": "~>3.0.0-beta.2"
+    },
+    "version": "1.0.0",
+    "sourcePaths": [
+        "source/"
+    ],
 
-	"versions": [ "LogQuery" ]
+    "versions": ["LogQuery"]
 }
