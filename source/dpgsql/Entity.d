@@ -1,4 +1,4 @@
-module dpgsql.Entity;
+module Dpgsql.Entity;
 
 interface IEntity
 {

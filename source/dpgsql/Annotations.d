@@ -1,4 +1,4 @@
-module dpgsql.Annotations;
+module Dpgsql.Annotations;
 
 struct Table
 {

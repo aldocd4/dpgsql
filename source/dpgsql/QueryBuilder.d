@@ -1,13 +1,13 @@
-module dpgsql.QueryBuilder;
+module Dpgsql.QueryBuilder;
 
 import std.string;
 import std.array;
         
 debug import std.stdio;
 
-import dpgsql.Connection;
-import dpgsql.Command;
-import dpgsql.DataReader;
+import Dpgsql.Connection;
+import Dpgsql.Command;
+import Dpgsql.DataReader;
 
 struct QueryBuilder
 {

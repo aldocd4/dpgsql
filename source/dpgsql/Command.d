@@ -1,14 +1,14 @@
-module dpgsql.Command;
+module Dpgsql.Command;
 
 debug import std.stdio;
 
 import std.conv : to;
 import std.string : toStringz;
 
-import dpgsql.Connection;
-import dpgsql.Parameter;
-import dpgsql.DataReader;
-import dpgsql.SqlException;
+import Dpgsql.Connection;
+import Dpgsql.Parameter;
+import Dpgsql.DataReader;
+import Dpgsql.SqlException;
 import derelict.pq.pq;
 
 struct Command

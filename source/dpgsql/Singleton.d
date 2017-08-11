@@ -1,4 +1,4 @@
-module dpgsql.Singleton;
+module Dpgsql.Singleton;
 
 /**
  * Pattern Singleton

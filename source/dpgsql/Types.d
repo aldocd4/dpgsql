@@ -1,4 +1,4 @@
-module dpgsql.Types;
+module Dpgsql.Types;
 
 enum DbType : int
 {

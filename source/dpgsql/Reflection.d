@@ -1,9 +1,9 @@
-module dpgsql.Reflection;
+module Dpgsql.Reflection;
 
 import std.string;
 import std.ascii : toUpper;
 
-import dpgsql.Annotations;
+import Dpgsql.Annotations;
 
 /**
  * Returns all members of entity T for SELECT query

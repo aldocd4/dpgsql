@@ -1,9 +1,9 @@
-module dpgsql.Connection;
+module Dpgsql.Connection;
 
 import std.conv : to;
 import std.string : toStringz;
 
-import dpgsql.SqlException;
+import Dpgsql.SqlException;
 import derelict.pq.pq;
 
 class Connection

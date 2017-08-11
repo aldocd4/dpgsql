@@ -1,12 +1,12 @@
-module dpgsql.EntityManager;
+module Dpgsql.EntityManager;
 
 debug import std.stdio;
 
-import dpgsql.Connection;
-import dpgsql.Command;
-import dpgsql.DataReader;
-import dpgsql.Repository;
-import dpgsql.Singleton;
+import Dpgsql.Connection;
+import Dpgsql.Command;
+import Dpgsql.DataReader;
+import Dpgsql.Repository;
+import Dpgsql.Singleton;
 
 class EntityManager
 {
