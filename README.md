@@ -8,7 +8,7 @@ dpgsql is a basic PostgreSQL client for D language.
 ### Basic query
 
 ```d
-auto connection = new Connection("user=postgres password=root dbname=hoho port=5432");
+auto connection = new Connection("user=postgres password=root dbname=mytestdb port=5432");
 connection.open();
 
 auto command = Command(connection, "SELECT * FROM character");
@@ -42,7 +42,7 @@ writeln(qb.select("name, id").from("character").fetch().filter!(c => c.id > 6));
 ### Entity Manager
 
 ```d
-import Dpgsql;
+import dpgsql;
 
 @Table("character")
 class Character : IEntity
