@@ -1,4 +1,4 @@
-module Dpgsql;
+module dpgsql;
 
 shared static this()
 {
