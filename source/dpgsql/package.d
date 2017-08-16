@@ -1,4 +1,4 @@
-module Dpgsql;
+module dpgsql;
 
 shared static this()
 {
@@ -9,15 +9,15 @@ public
 {
     import derelict.pq.pq;
     
-    import Dpgsql.Entity;
-    import Dpgsql.Annotations;
-    import Dpgsql.EntityManager;
-    import Dpgsql.Repository;
-    import Dpgsql.Reflection;
-    import Dpgsql.QueryBuilder;
-    import Dpgsql.SqlException;
-    import Dpgsql.Types;
-    import Dpgsql.DataReader;
-    import Dpgsql.Connection;
-    import Dpgsql.Command;
+    import dpgsql.Entity;
+    import dpgsql.Annotations;
+    import dpgsql.EntityManager;
+    import dpgsql.Repository;
+    import dpgsql.Reflection;
+    import dpgsql.QueryBuilder;
+    import dpgsql.SqlException;
+    import dpgsql.Types;
+    import dpgsql.DataReader;
+    import dpgsql.Connection;
+    import dpgsql.Command;
 }

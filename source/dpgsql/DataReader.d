@@ -1,12 +1,12 @@
-module Dpgsql.DataReader;
+module dpgsql.DataReader;
 
 import std.conv : to;
 import std.string : toStringz;
 import std.traits;
 import std.variant;
 
-import Dpgsql.Types;
-import Dpgsql.SqlException;
+import dpgsql.Types;
+import dpgsql.SqlException;
 import derelict.pq.pq;
 
 struct Row

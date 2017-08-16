@@ -1,4 +1,4 @@
-module Dpgsql.Repository;
+module dpgsql.Repository;
 
 debug import std.stdio;
 import std.string;
@@ -7,15 +7,15 @@ import std.traits;
 import std.conv;
 import std.variant;
 
-import Dpgsql.EntityManager;
-import Dpgsql.Connection;
-import Dpgsql.Command;
-import Dpgsql.DataReader;
-import Dpgsql.Parameter;
-import Dpgsql.Entity;
-import Dpgsql.Reflection;
-import Dpgsql.Annotations;
-import Dpgsql.Types;
+import dpgsql.EntityManager;
+import dpgsql.Connection;
+import dpgsql.Command;
+import dpgsql.DataReader;
+import dpgsql.Parameter;
+import dpgsql.Entity;
+import dpgsql.Reflection;
+import dpgsql.Annotations;
+import dpgsql.Types;
 
 interface IRepository
 {

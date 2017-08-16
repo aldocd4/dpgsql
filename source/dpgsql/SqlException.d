@@ -1,4 +1,4 @@
-module Dpgsql.SqlException;
+module dpgsql.SqlException;
 
 class SqlException : Exception
 {
